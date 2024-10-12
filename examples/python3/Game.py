@@ -120,7 +120,64 @@ class Game:
         stdscr.addstr(string)
         stdscr.refresh()
 
-    # ... (other methods like gameOver, nextSquare, placeFood, placeObstacle remain unchanged) ...
+    def gameOver(self):
+        """Return whether the game is over."""
+        head = self.snake.head()
+
+        # Snake is out of bounds
+        if head.x < 0 or head.x >= self.height or head.y < 0 or head.y >= self.width:
+            return True
+        # Snake has run into itself
+        elif head in self.snake.snake[:-1]:
+            return True
+        # Snake has run into an obstacle
+        elif head in self.obstacles:
+            return True
+        else:
+            return False
+
+    def nextSquare(self, currentDirection):
+        """Return the next square based on the snake's direction."""
+        head = self.snake.head()
+
+        if currentDirection == Direction.UP:
+            return head.up()
+        elif currentDirection == Direction.LEFT:
+            return head.left()
+        elif currentDirection == Direction.DOWN:
+            return head.down()
+        elif currentDirection == Direction.RIGHT:
+            return head.right()
+
+    def placeFood(self):
+        """Place the food on a random square on the plane."""
+        x = random.randint(0, self.height - 1)
+        y = random.randint(0, self.width - 1)
+
+        food = Square(x, y, self.width)
+
+        # Make sure not to place the food on the snake or an obstacle
+        while food in self.snake or food in self.obstacles:
+            x = random.randint(0, self.height - 1)
+            y = random.randint(0, self.width - 1)
+            food = Square(x, y, self.width)
+
+        self.food = food
+
+    def placeObstacle(self):
+        """Place an obstacle on a random square on the plane."""
+        x = random.randint(0, self.height - 1)
+        y = random.randint(0, self.width - 1)
+
+        obstacle = Square(x, y, self.width)
+
+        # Make sure not to place the obstacle on the snake or food
+        while obstacle in self.snake or obstacle == self.food:
+            x = random.randint(0, self.height - 1)
+            y = random.randint(0, self.width - 1)
+            obstacle = Square(x, y, self.width)
+
+        self.obstacles.add(obstacle)
 
 def main(stdscr):
     """Main function to run the game with curses."""
