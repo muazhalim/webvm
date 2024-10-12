@@ -2,7 +2,7 @@ import random
 import time
 import platform
 import os
-import msvcrt
+import curses
 from KeyListener import KeyListener
 from Square import Square
 from Snake import Snake
