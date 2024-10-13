@@ -12,7 +12,7 @@ CFLAGS := -Wall -Wextra -O2 -I$(PWD)   # Include path to the current directory w
 LDLIBS := -L$(PWD) -ltermbox           # Link the local termbox library
 
 # Default rule for compiling all games
-all: (PROGS)(PROGS) (GAMES)
+all: $(PROGS)
 
 # Rule for compiling any generic C file
 %: %.c
@@ -20,6 +20,6 @@ all: (PROGS)(PROGS) (GAMES)
 
 # Clean rule to remove compiled programs and games
 clean:
-	rm -f (PROGS)(PROGS) (GAMES)
+	rm -f $(PROGS)
 
 .PHONY: all clean
