@@ -6,7 +6,7 @@ PROGS = $(patsubst %.c,%,$(SRCS))
 
 # Flags for the C compiler
 CFLAGS := -Wall -Wextra -O2 -I$(PWD)   # Include path to the current directory where termbox.h is located
-LDLIBS := -L$(PWD) -ltermbox           # Link the local termbox library
+LDLIBS := termbox.o                    # Link the termbox.o object file
 
 # Default rule for compiling all programs
 all: $(PROGS)
@@ -17,6 +17,6 @@ all: $(PROGS)
 
 # Clean rule to remove compiled programs
 clean:
-	rm -f $(PROGS)
+	rm -f $(PROGS) termbox.o
 
 .PHONY: all clean
