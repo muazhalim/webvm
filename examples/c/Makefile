@@ -8,8 +8,8 @@ PROGS = $(patsubst %.c,%,$(SRCS))
 GAMES := invaders minesweeper snake sokoban sudoku tetris
 
 # Flags for the C compiler
-CFLAGS := -Wall -Wextra -O2
-LDLIBS := -s -ltermbox  # Add necessary libraries here
+CFLAGS := -Wall -Wextra -O2 -I$(PWD)/termbox/src   # Added the path to the local termbox headers
+LDLIBS := -L$(PWD)/termbox -ltermbox  # Link the local termbox library
 
 # Default rule for compiling all games
 all: $(PROGS) $(GAMES)
